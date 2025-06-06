@@ -1,0 +1,82 @@
+Build a Skill Development Tracker web application using only PHP (backend), MySQL via PHPMyAdmin (localhost), HTML, Tailwind CSS (for styling), and JavaScript (for interactivity).
+
+📌 Purpose: To monitor and measure intern skill development (both technical and soft skills) during the internship. It includes dashboards for interns, evaluation panels for supervisors, and reports for HR/admins.
+
+🔧 Key Features:
+
+1. Intern Skill Dashboard
+Intern login system (PHP sessions)
+
+View and update initial and current skill levels
+
+List of skills with selectable levels (e.g., Beginner, Intermediate, Advanced)
+
+Progress bars and badges using Tailwind for gamification
+
+Learning suggestions for weak skill areas
+
+Simple and responsive design with Tailwind CSS
+
+2. Supervisor Evaluation Panel
+Supervisor login
+
+View intern profiles and skill progress
+
+Rate each skill, leave comments, and suggest training
+
+Side-by-side comparison of intern self-assessment vs supervisor rating
+
+Assign mentoring sessions or tasks
+
+3. Analytics & Reporting (HR/Admin View)
+Generate visual skill growth reports using basic JS charts (e.g., Chart.js)
+
+Filter by department, skill, intern, or time range
+
+Export reports to PDF or printable format
+
+Identify top-performing interns and skill gaps
+
+4. Security & Access Control
+Role-based login: intern, supervisor, admin
+
+Interns can only edit their own skill data
+
+Supervisors can view and validate intern progress
+
+Admins can view all reports and analytics
+
+Use PHP session control and basic data validation
+
+5. Database Design (MySQL via PHPMyAdmin - localhost)
+Suggested Table: skill_development
+
+sql
+Copy
+Edit
+CREATE TABLE skill_development (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  intern_id INT NOT NULL,
+  skill_name VARCHAR(100),
+  initial_level VARCHAR(50),
+  current_level VARCHAR(50),
+  supervisor_rating VARCHAR(10),
+  last_updated DATE
+);
+🧩 User Flows:
+
+Intern logs in → rates initial skills → updates over time → sees progress
+
+Supervisor logs in → selects intern → compares ratings → gives feedback
+
+Admin/HR logs in → views reports → filters & exports data
+
+✅ Tech Requirements:
+
+PHP only for backend logic
+
+MySQL (localhost via PHPMyAdmin)
+
+HTML + Tailwind CSS for UI
+
+JavaScript (vanilla or small libraries like Chart.js)
