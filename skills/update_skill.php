@@ -2,15 +2,31 @@
 // Process skill updates
 require_once "../config/database.php";
 require_once "../includes/auth.php";
-require_once "../includes/kylafunctions.php";
+require_once "../includes/functions.php";
 
-// Check if user is logged in and is an intern
-require_role('intern');
+// Start session if not already started
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    $_SESSION['error'] = "Please log in to update skills.";
+    header("Location: ../index.php");
+    exit;
+}
+
+// Check if user is an intern
+if ($_SESSION['user_role'] !== 'intern') {
+    $_SESSION['error'] = "Only interns can update their skills.";
+    header("Location: ../index.php");
+    exit;
+}
 
 // Redirect if not POST request
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     $_SESSION['error'] = "Invalid request method.";
-    header("Location: skills_list.php");
+    header("Location: rename-skills_list.php");
     exit;
 }
 
@@ -49,6 +65,6 @@ if (empty($errors)) {
 }
 
 // Redirect back to skills list
-header("Location: skills_list.php");
+header("Location: rename-skills_list.php");
 exit;
 ?>

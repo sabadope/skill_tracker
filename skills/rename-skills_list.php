@@ -4,8 +4,29 @@ require_once "../config/database.php";
 require_once "../includes/auth.php";
 require_once "../includes/functions.php";
 
-// Check if user is logged in and is an intern
-require_role('intern');
+// Start session if not already started
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    $_SESSION['error'] = "Please log in to view your skills.";
+    header("Location: ../index.php");
+    exit;
+}
+
+// Check if user is an intern
+if ($_SESSION['user_role'] !== 'intern') {
+    $_SESSION['error'] = "Only interns can view their skills.";
+    header("Location: ../index.php");
+    exit;
+}
+
+// Clear any error messages if this is just a page view
+if ($_SERVER["REQUEST_METHOD"] === "GET") {
+    unset($_SESSION['error']);
+}
 
 // Get database connection
 $database = new Database();

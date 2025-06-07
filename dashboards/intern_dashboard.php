@@ -57,7 +57,7 @@ require_once "../includes/header.php";
         <p class="text-gray-600 mb-2"><strong>Department:</strong> <?php echo htmlspecialchars($user['department']); ?></p>
         <p class="text-gray-600"><strong>Role:</strong> Intern</p>
         <div class="mt-4">
-            <a href="../skills/skills_list.php" class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300">
+            <a href="../skills/update_skill.php" class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300">
                 Update Skills
             </a>
         </div>
