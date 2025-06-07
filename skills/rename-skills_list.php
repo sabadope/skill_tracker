@@ -100,8 +100,25 @@ require_once "../includes/header.php";
             </button>
         </div>
         
-        <form action="update_skill.php" method="POST">
+        <form action="update_skill.php" method="POST" id="addSkillForm">
             <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">
+                    Skill Type
+                </label>
+                <div class="flex space-x-4 mb-2">
+                    <label class="inline-flex items-center">
+                        <input type="radio" name="skill_type" value="existing" class="form-radio" checked>
+                        <span class="ml-2">Select Existing Skill</span>
+                    </label>
+                    <label class="inline-flex items-center">
+                        <input type="radio" name="skill_type" value="custom" class="form-radio">
+                        <span class="ml-2">Add Custom Skill</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Existing Skills Selection -->
+            <div id="existingSkillSection" class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="skill_id">
                     Select Skill
                 </label>
@@ -132,6 +149,32 @@ require_once "../includes/header.php";
                         </optgroup>
                     <?php endif; ?>
                 </select>
+            </div>
+
+            <!-- Custom Skill Input -->
+            <div id="customSkillSection" class="mb-4 hidden">
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="custom_skill_name">
+                        Skill Name
+                    </label>
+                    <input type="text" name="custom_skill_name" id="custom_skill_name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter skill name">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="custom_skill_category">
+                        Category
+                    </label>
+                    <select name="custom_skill_category" id="custom_skill_category" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        <option value="technical">Technical</option>
+                        <option value="soft">Soft Skills</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="custom_skill_description">
+                        Description
+                    </label>
+                    <textarea name="custom_skill_description" id="custom_skill_description" rows="3" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Describe your skill"></textarea>
+                </div>
             </div>
             
             <div class="mb-4">
@@ -450,6 +493,10 @@ require_once "../includes/header.php";
     const addSkillBtn = document.getElementById('addSkillBtn');
     const addSkillModal = document.getElementById('addSkillModal');
     const closeModalBtn = document.getElementById('closeModalBtn');
+    const skillTypeRadios = document.getElementsByName('skill_type');
+    const existingSkillSection = document.getElementById('existingSkillSection');
+    const customSkillSection = document.getElementById('customSkillSection');
+    const addSkillForm = document.getElementById('addSkillForm');
     
     addSkillBtn.addEventListener('click', () => {
         addSkillModal.classList.remove('hidden');
@@ -463,6 +510,38 @@ require_once "../includes/header.php";
     addSkillModal.addEventListener('click', (e) => {
         if (e.target === addSkillModal) {
             addSkillModal.classList.add('hidden');
+        }
+    });
+
+    // Toggle between existing and custom skill sections
+    skillTypeRadios.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            if (e.target.value === 'existing') {
+                existingSkillSection.classList.remove('hidden');
+                customSkillSection.classList.add('hidden');
+                document.getElementById('skill_id').required = true;
+                document.getElementById('custom_skill_name').required = false;
+                document.getElementById('custom_skill_description').required = false;
+            } else {
+                existingSkillSection.classList.add('hidden');
+                customSkillSection.classList.remove('hidden');
+                document.getElementById('skill_id').required = false;
+                document.getElementById('custom_skill_name').required = true;
+                document.getElementById('custom_skill_description').required = true;
+            }
+        });
+    });
+
+    // Form submission handling
+    addSkillForm.addEventListener('submit', (e) => {
+        const skillType = document.querySelector('input[name="skill_type"]:checked').value;
+        
+        if (skillType === 'custom') {
+            // Change form action for custom skill
+            addSkillForm.action = 'add_custom_skill.php';
+        } else {
+            // Use default action for existing skill
+            addSkillForm.action = 'update_skill.php';
         }
     });
 </script>

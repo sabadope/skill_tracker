@@ -69,195 +69,188 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Communication Center - Intern Performance Monitoring System</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <style>
-        .message-card {
-            border-left: 4px solid #0d6efd;
-            margin-bottom: 1rem;
-        }
-        .feedback-card {
-            border-left: 4px solid #198754;
-            margin-bottom: 1rem;
-        }
-        .unread {
-            background-color: #f8f9fa;
-        }
-    </style>
+    <!-- Tailwind CSS from CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body>
+<body class="bg-gray-100 min-h-screen">
     <?php include "../includes/header.php"; ?>
 
-    <div class="container py-4">
-        <div class="row">
+    <div class="container mx-auto px-4 py-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <!-- Messages Section -->
-            <div class="col-md-6 mb-4">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Messages</h5>
-                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#newMessageModal">
-                            <i class="bi bi-plus-lg"></i> New Message
-                        </button>
-                    </div>
-                    <div class="card-body">
-                        <?php if (empty($messages)): ?>
-                            <p class="text-muted">No messages yet.</p>
-                        <?php else: ?>
-                            <?php foreach ($messages as $message): ?>
-                                <div class="card message-card <?php echo !$message['is_read'] && $message['receiver_id'] == $user_id ? 'unread' : ''; ?>">
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between">
-                                            <h6 class="card-subtitle mb-2 text-muted">
-                                                From: <?php echo htmlspecialchars($message['sender_first_name'] . ' ' . $message['sender_last_name']); ?>
-                                            </h6>
-                                            <small class="text-muted">
-                                                <?php echo date('M d, Y H:i', strtotime($message['created_at'])); ?>
-                                            </small>
-                                        </div>
-                                        <p class="card-text"><?php echo htmlspecialchars($message['message']); ?></p>
-                                    </div>
+            <div class="bg-white rounded-lg shadow-md">
+                <div class="p-4 border-b border-gray-200 flex justify-between items-center">
+                    <h5 class="text-lg font-semibold text-gray-800">Messages</h5>
+                    <button type="button" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md text-sm" onclick="document.getElementById('newMessageModal').classList.remove('hidden')">
+                        <i class="fas fa-plus"></i> New Message
+                    </button>
+                </div>
+                <div class="p-4">
+                    <?php if (empty($messages)): ?>
+                        <p class="text-gray-500 text-center py-4">No messages yet.</p>
+                    <?php else: ?>
+                        <?php foreach ($messages as $message): ?>
+                            <div class="border-l-4 border-blue-500 mb-4 p-4 bg-white rounded shadow-sm <?php echo !$message['is_read'] && $message['receiver_id'] == $user_id ? 'bg-gray-50' : ''; ?>">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h6 class="text-sm text-gray-600">
+                                        From: <?php echo htmlspecialchars($message['sender_first_name'] . ' ' . $message['sender_last_name']); ?>
+                                    </h6>
+                                    <span class="text-xs text-gray-500">
+                                        <?php echo date('M d, Y H:i', strtotime($message['created_at'])); ?>
+                                    </span>
                                 </div>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                    </div>
+                                <p class="text-gray-800"><?php echo htmlspecialchars($message['message']); ?></p>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </div>
             </div>
 
             <!-- Feedback Section -->
-            <div class="col-md-6 mb-4">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Feedback</h5>
-                        <?php if ($user_role === 'supervisor'): ?>
-                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#newFeedbackModal">
-                                <i class="bi bi-plus-lg"></i> New Feedback
-                            </button>
-                        <?php endif; ?>
-                    </div>
-                    <div class="card-body">
-                        <?php if (empty($feedback)): ?>
-                            <p class="text-muted">No feedback yet.</p>
-                        <?php else: ?>
-                            <?php foreach ($feedback as $item): ?>
-                                <div class="card feedback-card">
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between">
-                                            <h6 class="card-subtitle mb-2 text-muted">
-                                                <?php echo htmlspecialchars($item['feedback_type']); ?> Feedback
-                                            </h6>
-                                            <small class="text-muted">
-                                                <?php echo date('M d, Y', strtotime($item['created_at'])); ?>
-                                            </small>
-                                        </div>
-                                        <p class="card-text"><?php echo htmlspecialchars($item['content']); ?></p>
-                                        <?php if ($item['rating']): ?>
-                                            <div class="text-warning">
-                                                <?php for ($i = 0; $i < $item['rating']; $i++): ?>
-                                                    <i class="bi bi-star-fill"></i>
-                                                <?php endfor; ?>
-                                            </div>
-                                        <?php endif; ?>
-                                    </div>
+            <div class="bg-white rounded-lg shadow-md">
+                <div class="p-4 border-b border-gray-200 flex justify-between items-center">
+                    <h5 class="text-lg font-semibold text-gray-800">Feedback</h5>
+                    <?php if ($user_role === 'supervisor'): ?>
+                        <button type="button" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md text-sm" onclick="document.getElementById('newFeedbackModal').classList.remove('hidden')">
+                            <i class="fas fa-plus"></i> New Feedback
+                        </button>
+                    <?php endif; ?>
+                </div>
+                <div class="p-4">
+                    <?php if (empty($feedback)): ?>
+                        <p class="text-gray-500 text-center py-4">No feedback yet.</p>
+                    <?php else: ?>
+                        <?php foreach ($feedback as $item): ?>
+                            <div class="border-l-4 border-green-500 mb-4 p-4 bg-white rounded shadow-sm">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h6 class="text-sm text-gray-600">
+                                        <?php echo htmlspecialchars($item['feedback_type']); ?> Feedback
+                                    </h6>
+                                    <span class="text-xs text-gray-500">
+                                        <?php echo date('M d, Y', strtotime($item['created_at'])); ?>
+                                    </span>
                                 </div>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                    </div>
+                                <p class="text-gray-800 mb-2"><?php echo htmlspecialchars($item['content']); ?></p>
+                                <?php if ($item['rating']): ?>
+                                    <div class="flex text-yellow-400">
+                                        <?php for ($i = 0; $i < $item['rating']; $i++): ?>
+                                            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                            </svg>
+                                        <?php endfor; ?>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- New Message Modal -->
-    <div class="modal fade" id="newMessageModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">New Message</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <form action="send_message.php" method="POST">
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label class="form-label">To:</label>
-                            <select name="receiver_id" class="form-select" required>
-                                <option value="">Select recipient</option>
-                                <?php foreach ($users as $recipient): ?>
-                                    <option value="<?php echo $recipient['id']; ?>">
-                                        <?php echo htmlspecialchars($recipient['first_name'] . ' ' . $recipient['last_name'] . ' (' . $recipient['role'] . ')'); ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Message:</label>
-                            <textarea name="message" class="form-control" rows="4" required></textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Send Message</button>
-                    </div>
-                </form>
+    <div id="newMessageModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold text-gray-900">New Message</h3>
+                <button onclick="document.getElementById('newMessageModal').classList.add('hidden')" class="text-gray-400 hover:text-gray-500">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
             </div>
+            <form action="send_message.php" method="POST">
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">To:</label>
+                    <select name="receiver_id" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        <option value="">Select recipient</option>
+                        <?php foreach ($users as $recipient): ?>
+                            <option value="<?php echo $recipient['id']; ?>">
+                                <?php echo htmlspecialchars($recipient['first_name'] . ' ' . $recipient['last_name'] . ' (' . $recipient['role'] . ')'); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Message:</label>
+                    <textarea name="message" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" rows="4" required></textarea>
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button type="button" onclick="document.getElementById('newMessageModal').classList.add('hidden')" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Send Message</button>
+                </div>
+            </form>
         </div>
     </div>
 
     <!-- New Feedback Modal -->
     <?php if ($user_role === 'supervisor'): ?>
-    <div class="modal fade" id="newFeedbackModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">New Feedback</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <form action="send_feedback.php" method="POST">
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label class="form-label">Intern:</label>
-                            <select name="intern_id" class="form-select" required>
-                                <option value="">Select intern</option>
-                                <?php foreach ($users as $user): ?>
-                                    <?php if ($user['role'] === 'intern'): ?>
-                                        <option value="<?php echo $user['id']; ?>">
-                                            <?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?>
-                                        </option>
-                                    <?php endif; ?>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Feedback Type:</label>
-                            <select name="feedback_type" class="form-select" required>
-                                <option value="weekly">Weekly</option>
-                                <option value="monthly">Monthly</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Rating:</label>
-                            <select name="rating" class="form-select" required>
-                                <option value="1">1 Star</option>
-                                <option value="2">2 Stars</option>
-                                <option value="3">3 Stars</option>
-                                <option value="4">4 Stars</option>
-                                <option value="5">5 Stars</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Feedback:</label>
-                            <textarea name="content" class="form-control" rows="4" required></textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success">Submit Feedback</button>
-                    </div>
-                </form>
+    <div id="newFeedbackModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold text-gray-900">New Feedback</h3>
+                <button onclick="document.getElementById('newFeedbackModal').classList.add('hidden')" class="text-gray-400 hover:text-gray-500">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
             </div>
+            <form action="send_feedback.php" method="POST">
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Intern:</label>
+                    <select name="intern_id" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        <option value="">Select intern</option>
+                        <?php foreach ($users as $user): ?>
+                            <?php if ($user['role'] === 'intern'): ?>
+                                <option value="<?php echo $user['id']; ?>">
+                                    <?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?>
+                                </option>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Feedback Type:</label>
+                    <select name="feedback_type" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        <option value="weekly">Weekly</option>
+                        <option value="monthly">Monthly</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Rating:</label>
+                    <select name="rating" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        <option value="1">1 Star</option>
+                        <option value="2">2 Stars</option>
+                        <option value="3">3 Stars</option>
+                        <option value="4">4 Stars</option>
+                        <option value="5">5 Stars</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Feedback:</label>
+                    <textarea name="content" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" rows="4" required></textarea>
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button type="button" onclick="document.getElementById('newFeedbackModal').classList.add('hidden')" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">Send Feedback</button>
+                </div>
+            </form>
         </div>
     </div>
     <?php endif; ?>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('newMessageModal')) {
+                document.getElementById('newMessageModal').classList.add('hidden');
+            }
+            if (event.target == document.getElementById('newFeedbackModal')) {
+                document.getElementById('newFeedbackModal').classList.add('hidden');
+            }
+        }
+    </script>
 </body>
 </html> 
