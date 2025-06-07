@@ -9,17 +9,18 @@ if (is_logged_in()) {
     redirect_by_role();
 }
 ?>
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Intern Performance Monitoring System</title>
         <!-- Bootstrap CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
         <!-- Bootstrap Icons -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-            <style>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
+        <style>
             .hero-section {
                 background-color: #f8f9fa;
                 padding: 100px 0 60px;
@@ -41,7 +42,7 @@ if (is_logged_in()) {
             .feature-card:hover {
                 transform: translateY(-5px);
                 border-color: #0d6efd;
-                box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
             }
             .feature-icon {
                 font-size: 3rem;
@@ -74,7 +75,7 @@ if (is_logged_in()) {
             }
             .navbar {
                 padding: 15px 0;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
                 transition: all 0.3s ease;
             }
             .navbar-brand {
@@ -110,9 +111,9 @@ if (is_logged_in()) {
             }
             .hero-image {
                 border-radius: 10px;
-                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
                 height: 400px;
-                background-image: url('assets/hero-background.jpeg');
+                background-image: url("assets/hero-background.jpeg");
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;
@@ -126,7 +127,7 @@ if (is_logged_in()) {
                 padding-bottom: 15px;
             }
             .section-title:after {
-                content: '';
+                content: "";
                 position: absolute;
                 bottom: 0;
                 left: 50%;
@@ -192,7 +193,7 @@ if (is_logged_in()) {
                     background: #fff;
                     padding: 20px;
                     border-radius: 10px;
-                    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
                     margin-top: 15px;
                 }
                 .navbar-nav {
@@ -206,7 +207,7 @@ if (is_logged_in()) {
                 padding: 30px 20px;
                 background: #fff;
                 border-radius: 10px;
-                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
                 position: relative;
                 transition: transform 0.3s ease;
             }
@@ -236,7 +237,7 @@ if (is_logged_in()) {
                 padding: 40px;
                 background: #fff;
                 border-radius: 15px;
-                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             }
             .testimonial-image {
                 width: 80px;
@@ -266,7 +267,7 @@ if (is_logged_in()) {
                 padding: 20px;
                 background: #fff;
                 border-radius: 10px;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
                 transition: transform 0.3s ease;
             }
             .partner-logo:hover {
@@ -284,20 +285,20 @@ if (is_logged_in()) {
             }
             .accordion-button:focus {
                 box-shadow: none;
-                border-color: rgba(0,0,0,.125);
+                border-color: rgba(0, 0, 0, 0.125);
             }
             .cta-section {
                 position: relative;
                 overflow: hidden;
             }
             .cta-section::before {
-                content: '';
+                content: "";
                 position: absolute;
                 top: 0;
                 left: 0;
                 right: 0;
                 bottom: 0;
-                background: linear-gradient(45deg, rgba(13,110,253,0.9), rgba(13,202,240,0.9));
+                background: linear-gradient(45deg, rgba(13, 110, 253, 0.9), rgba(13, 202, 240, 0.9));
                 z-index: 1;
             }
             .cta-section .container {
@@ -324,7 +325,7 @@ if (is_logged_in()) {
                 background: #fff;
                 border-radius: 10px;
                 margin-bottom: 30px;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
                 transition: transform 0.3s ease;
             }
             .vertical-scrollable-timeline li:hover {
@@ -427,7 +428,7 @@ if (is_logged_in()) {
                 background: #fff;
                 padding: 30px;
                 border-radius: 10px;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
                 height: 100%;
                 transition: transform 0.3s ease;
             }
@@ -454,7 +455,7 @@ if (is_logged_in()) {
                 background-color: #f8f9fa;
             }
             .accordion-item {
-                border: 1px solid rgba(0,0,0,.125);
+                border: 1px solid rgba(0, 0, 0, 0.125);
                 margin-bottom: 15px;
                 border-radius: 8px !important;
                 overflow: hidden;
@@ -470,7 +471,7 @@ if (is_logged_in()) {
             }
             .accordion-button:focus {
                 box-shadow: none;
-                border-color: rgba(0,0,0,.125);
+                border-color: rgba(0, 0, 0, 0.125);
             }
             .accordion-body {
                 padding: 20px;
@@ -486,7 +487,7 @@ if (is_logged_in()) {
             .contact-form-wrap {
                 background: #fff;
                 padding: 60px 0;
-                box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             }
             .contact-form .input-group {
                 max-width: 500px;
@@ -520,9 +521,9 @@ if (is_logged_in()) {
             .contact-form-wrap .section-title {
                 margin-bottom: 25px;
             }
-            </style>
+        </style>
     </head>
-    
+
     <body>
         <!-- Navigation -->
         <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
@@ -550,16 +551,14 @@ if (is_logged_in()) {
                         </li>
                         <li class="nav-item me-4">
                             <a class="nav-link" href="#faq">FAQ</a>
-                    </li>
+                        </li>
                         <li class="nav-item me-4">
                             <a class="nav-link" href="#contact">Contact</a>
-                    </li>
+                        </li>
                         <li class="nav-item">
-                            <a href="login.php" class="btn btn-primary px-4">
-                                <i class="bi bi-box-arrow-in-right me-2"></i> Apply
-                            </a>
-                    </li>
-                </ul>
+                            <a href="login.php" class="btn btn-primary px-4"> <i class="bi bi-box-arrow-in-right me-2"></i> Apply </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>
@@ -577,15 +576,14 @@ if (is_logged_in()) {
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="hero-image">
-                        </div>
+                        <div class="hero-image"></div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Features Section -->
-        <section class="features-section" id="features" style="background-color: #fff; box-shadow: 0 12px 24px rgba(0,0,0,0.2);">
+        <section class="features-section" id="features" style="background-color: #fff; box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);">
             <div class="container">
                 <h2 class="text-center section-title">Key Features</h2>
                 <div class="row g-4">
@@ -655,14 +653,14 @@ if (is_logged_in()) {
                                         <i class="bi bi-person-plus"></i>
                                     </div>
                                 </li>
-                                
+
                                 <li>
                                     <h4 class="mb-3">Schedule & Plan</h4>
                                     <p>Set up your internship timeline, define goals, and create a structured plan for success. Our platform helps you organize tasks and milestones effectively.</p>
                                     <div class="icon-holder">
                                         <i class="bi bi-calendar-check"></i>
                                     </div>
-                    </li>
+                                </li>
 
                                 <li>
                                     <h4 class="mb-3">Track & Monitor</h4>
@@ -670,7 +668,7 @@ if (is_logged_in()) {
                                     <div class="icon-holder">
                                         <i class="bi bi-graph-up"></i>
                                     </div>
-                    </li>
+                                </li>
 
                                 <li>
                                     <h4 class="mb-3">Excel & Grow</h4>
@@ -678,20 +676,20 @@ if (is_logged_in()) {
                                     <div class="icon-holder">
                                         <i class="bi bi-trophy"></i>
                                     </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
                     <div class="col-12 text-center mt-5">
-                        <a href="{{ route('login') }}" class="btn btn-primary btn-lg">Get Started</a>
+                        <a href="login.php" class="btn btn-primary btn-lg">Get Started</a>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Benefits Section -->
-        <section class="benefits-section section-padding" id="benefits" style="background-color: #fff; box-shadow: 0 12px 24px rgba(0,0,0,0.2);">
+        <section class="benefits-section section-padding" id="benefits" style="background-color: #fff; box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);">
             <div class="container">
                 <div class="row">
                     <div class="col-12 text-center mb-5">
@@ -776,7 +774,8 @@ if (is_logged_in()) {
                                 </h2>
                                 <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
                                     <div class="accordion-body">
-                                        IPMS (Intern Performance Monitoring System) is a comprehensive platform designed to streamline and enhance the internship management process. It helps organizations track, evaluate, and improve intern performance effectively.
+                                        IPMS (Intern Performance Monitoring System) is a comprehensive platform designed to streamline and enhance the internship management process. It helps organizations track, evaluate, and improve intern
+                                        performance effectively.
                                     </div>
                                 </div>
                             </div>
@@ -789,7 +788,8 @@ if (is_logged_in()) {
                                 </h2>
                                 <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                                     <div class="accordion-body">
-                                        Our evaluation process is comprehensive and transparent. Supervisors can set specific goals, track progress, provide real-time feedback, and conduct regular assessments. The system automatically generates performance reports and analytics.
+                                        Our evaluation process is comprehensive and transparent. Supervisors can set specific goals, track progress, provide real-time feedback, and conduct regular assessments. The system automatically
+                                        generates performance reports and analytics.
                                     </div>
                                 </div>
                             </div>
@@ -802,7 +802,8 @@ if (is_logged_in()) {
                                 </h2>
                                 <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                                     <div class="accordion-body">
-                                        Yes, the platform allows you to customize evaluation criteria based on your organization's specific needs. You can set different parameters, weightage, and assessment methods for different roles and departments.
+                                        Yes, the platform allows you to customize evaluation criteria based on your organization's specific needs. You can set different parameters, weightage, and assessment methods for different roles and
+                                        departments.
                                     </div>
                                 </div>
                             </div>
@@ -816,9 +817,9 @@ if (is_logged_in()) {
                                 <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                                     <div class="accordion-body">
                                         Yes, IPMS is fully responsive and works seamlessly on all devices. You can access all features through any web browser on your mobile device, tablet, or desktop computer.
-        </div>
-    </div>
-</div>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
@@ -839,7 +840,7 @@ if (is_logged_in()) {
         </section>
 
         <!-- Get in Touch Section -->
-        <section class="contact-section section-padding" id="contact" style="box-shadow: 0 12px 24px rgba(0,0,0,0.2);">
+        <section class="contact-section section-padding" id="contact" style="box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);">
             <div class="container-fluid px-0">
                 <div class="row g-0">
                     <div class="col-12">
@@ -848,17 +849,18 @@ if (is_logged_in()) {
                                 <div class="row justify-content-center">
                                     <div class="col-lg-8 col-md-10 col-12">
                                         <h2 class="section-title mb-4">Get in Touch</h2>
-                                        
+
                                         <p class="mb-4">
-                                            Although the system is custom-built and still under development, your feedback is always welcome! While we're not handling general inquiries at this time, feel free to submit a ticket if you encounter any issues or have suggestions.
-                                            <br><br>
+                                            Although the system is custom-built and still under development, your feedback is always welcome! While we're not handling general inquiries at this time, feel free to submit a ticket if you
+                                            encounter any issues or have suggestions.
+                                            <br />
+                                            <br />
                                             Your input helps us improve—thank you for your support!
                                         </p>
 
                                         <form class="contact-form" action="#" method="post" role="form">
                                             <div class="input-group">
-                                                <input type="email" name="contact-email" id="contact-email" class="form-control" 
-                                                    placeholder="Email Address" required>
+                                                <input type="email" name="contact-email" id="contact-email" class="form-control" placeholder="Email Address" required />
                                                 <button type="submit" class="btn btn-primary">
                                                     Submit
                                                 </button>
@@ -904,9 +906,9 @@ if (is_logged_in()) {
                         </ul>
                     </div>
                 </div>
-                <hr class="my-4">
+                <hr class="my-4" />
                 <div class="text-center text-muted">
-                    <small>&copy; {{ date('Y') }} Intern Performance Monitoring System. All rights reserved.</small>
+                    <small>&copy; <?php echo date('Y'); ?> Intern Performance Monitoring System. All rights reserved.</small>
                 </div>
             </div>
         </footer>
@@ -915,3 +917,4 @@ if (is_logged_in()) {
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
+

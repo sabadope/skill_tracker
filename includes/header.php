@@ -6,11 +6,16 @@ if (session_status() === PHP_SESSION_NONE) {
 
 // Determine the base path for links
 $base_path = '';
-if (strpos($_SERVER['PHP_SELF'], '/dashboards/') !== false) {
+$current_path = $_SERVER['PHP_SELF'];
+
+// Check which directory we're in and set the appropriate base path
+if (strpos($current_path, '/dashboards/') !== false) {
     $base_path = '../';
-} else if (strpos($_SERVER['PHP_SELF'], '/skills/') !== false) {
+} else if (strpos($current_path, '/skills/') !== false) {
     $base_path = '../';
-} else if (strpos($_SERVER['PHP_SELF'], '/reports/') !== false) {
+} else if (strpos($current_path, '/reports/') !== false) {
+    $base_path = '../';
+} else if (strpos($current_path, '/communication/') !== false) {
     $base_path = '../';
 }
 
@@ -35,7 +40,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 <div class="flex space-x-7">
                     <div>
                         <a href="<?php echo $base_path; ?>index.php" class="flex items-center py-4 px-2">
-                            <span class="font-semibold text-white text-lg">Skill Development Tracker</span>
+                            <span class="font-semibold text-white text-lg">Smart Intern Management</span>
                         </a>
                     </div>
                     
@@ -43,34 +48,46 @@ $current_page = basename($_SERVER['PHP_SELF']);
                     <div class="hidden md:flex items-center space-x-1">
                         <?php if ($_SESSION['user_role'] === 'intern'): ?>
                         <a href="<?php echo $base_path; ?>dashboards/intern_dashboard.php" 
-                           class="py-4 px-2 <?php echo ($current_page === 'intern_dashboard.php') ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-300 hover:text-blue-500 hover:border-b-2 hover:border-blue-500'; ?>">
+                           class="py-4 px-2 <?php echo (strpos($current_path, '/dashboards/intern_dashboard.php') !== false) ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-300 hover:text-blue-500 hover:border-b-2 hover:border-blue-500'; ?>">
                             Dashboard
                         </a>
                         <a href="<?php echo $base_path; ?>skills/skills_list.php" 
-                           class="py-4 px-2 <?php echo ($current_page === 'skills_list.php') ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-300 hover:text-blue-500 hover:border-b-2 hover:border-blue-500'; ?>">
+                           class="py-4 px-2 <?php echo (strpos($current_path, '/skills/skills_list.php') !== false) ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-300 hover:text-blue-500 hover:border-b-2 hover:border-blue-500'; ?>">
                             My Skills
+                        </a>
+                        <a href="<?php echo $base_path; ?>communication/index.php" 
+                           class="py-4 px-2 <?php echo (strpos($current_path, '/communication/') !== false) ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-300 hover:text-blue-500 hover:border-b-2 hover:border-blue-500'; ?>">
+                            Communication
                         </a>
                         <?php elseif ($_SESSION['user_role'] === 'supervisor'): ?>
                         <a href="<?php echo $base_path; ?>dashboards/supervisor_dashboard.php" 
-                           class="py-4 px-2 <?php echo ($current_page === 'supervisor_dashboard.php') ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-300 hover:text-blue-500 hover:border-b-2 hover:border-blue-500'; ?>">
+                           class="py-4 px-2 <?php echo (strpos($current_path, '/dashboards/supervisor_dashboard.php') !== false) ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-300 hover:text-blue-500 hover:border-b-2 hover:border-blue-500'; ?>">
                             Dashboard
                         </a>
                         <a href="<?php echo $base_path; ?>skills/evaluate_skill.php" 
-                           class="py-4 px-2 <?php echo ($current_page === 'evaluate_skill.php') ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-300 hover:text-blue-500 hover:border-b-2 hover:border-blue-500'; ?>">
+                           class="py-4 px-2 <?php echo (strpos($current_path, '/skills/evaluate_skill.php') !== false) ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-300 hover:text-blue-500 hover:border-b-2 hover:border-blue-500'; ?>">
                             Evaluate Interns
+                        </a>
+                        <a href="<?php echo $base_path; ?>communication/index.php" 
+                           class="py-4 px-2 <?php echo (strpos($current_path, '/communication/') !== false) ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-300 hover:text-blue-500 hover:border-b-2 hover:border-blue-500'; ?>">
+                            Communication
                         </a>
                         <?php elseif ($_SESSION['user_role'] === 'admin'): ?>
                         <a href="<?php echo $base_path; ?>dashboards/admin_dashboard.php" 
-                           class="py-4 px-2 <?php echo ($current_page === 'admin_dashboard.php') ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-300 hover:text-blue-500 hover:border-b-2 hover:border-blue-500'; ?>">
+                           class="py-4 px-2 <?php echo (strpos($current_path, '/dashboards/admin_dashboard.php') !== false) ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-300 hover:text-blue-500 hover:border-b-2 hover:border-blue-500'; ?>">
                             Dashboard
                         </a>
                         <a href="<?php echo $base_path; ?>reports/generate_report.php" 
-                           class="py-4 px-2 <?php echo ($current_page === 'generate_report.php') ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-300 hover:text-blue-500 hover:border-b-2 hover:border-blue-500'; ?>">
+                           class="py-4 px-2 <?php echo (strpos($current_path, '/reports/generate_report.php') !== false) ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-300 hover:text-blue-500 hover:border-b-2 hover:border-blue-500'; ?>">
                             Reports
                         </a>
                         <a href="<?php echo $base_path; ?>register.php" 
-                           class="py-4 px-2 <?php echo ($current_page === 'register.php') ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-300 hover:text-blue-500 hover:border-b-2 hover:border-blue-500'; ?>">
+                           class="py-4 px-2 <?php echo (strpos($current_path, '/register.php') !== false) ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-300 hover:text-blue-500 hover:border-b-2 hover:border-blue-500'; ?>">
                             Add User
+                        </a>
+                        <a href="<?php echo $base_path; ?>communication/index.php" 
+                           class="py-4 px-2 <?php echo (strpos($current_path, '/communication/') !== false) ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-300 hover:text-blue-500 hover:border-b-2 hover:border-blue-500'; ?>">
+                            Communication
                         </a>
                         <?php endif; ?>
                     </div>
@@ -84,7 +101,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                         <a href="<?php echo $base_path; ?>logout.php" class="py-2 px-3 bg-red-500 hover:bg-red-600 text-white rounded transition duration-300">Logout</a>
                     </div>
                     <?php else: ?>
-                    <a href="<?php echo $base_path; ?>login.php" class="py-2 px-3 bg-blue-500 hover:bg-blue-600 text-white rounded transition duration-300">Login</a>
+                    <a href="<?php echo $base_path; ?>index.php" class="py-2 px-3 bg-blue-500 hover:bg-blue-600 text-white rounded transition duration-300">Home</a>
                     <?php endif; ?>
                 </div>
                 
@@ -105,13 +122,16 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 <?php if ($_SESSION['user_role'] === 'intern'): ?>
                 <a href="<?php echo $base_path; ?>dashboards/intern_dashboard.php" class="block py-2 px-4 text-sm hover:bg-gray-700">Dashboard</a>
                 <a href="<?php echo $base_path; ?>skills/skills_list.php" class="block py-2 px-4 text-sm hover:bg-gray-700">My Skills</a>
+                <a href="<?php echo $base_path; ?>communication/index.php" class="block py-2 px-4 text-sm hover:bg-gray-700">Communication</a>
                 <?php elseif ($_SESSION['user_role'] === 'supervisor'): ?>
                 <a href="<?php echo $base_path; ?>dashboards/supervisor_dashboard.php" class="block py-2 px-4 text-sm hover:bg-gray-700">Dashboard</a>
                 <a href="<?php echo $base_path; ?>skills/evaluate_skill.php" class="block py-2 px-4 text-sm hover:bg-gray-700">Evaluate Interns</a>
+                <a href="<?php echo $base_path; ?>communication/index.php" class="block py-2 px-4 text-sm hover:bg-gray-700">Communication</a>
                 <?php elseif ($_SESSION['user_role'] === 'admin'): ?>
                 <a href="<?php echo $base_path; ?>dashboards/admin_dashboard.php" class="block py-2 px-4 text-sm hover:bg-gray-700">Dashboard</a>
                 <a href="<?php echo $base_path; ?>reports/generate_report.php" class="block py-2 px-4 text-sm hover:bg-gray-700">Reports</a>
                 <a href="<?php echo $base_path; ?>register.php" class="block py-2 px-4 text-sm hover:bg-gray-700">Add User</a>
+                <a href="<?php echo $base_path; ?>communication/index.php" class="block py-2 px-4 text-sm hover:bg-gray-700">Communication</a>
                 <?php endif; ?>
                 <a href="<?php echo $base_path; ?>logout.php" class="block py-2 px-4 text-sm hover:bg-gray-700">Logout</a>
             <?php else: ?>

@@ -4,10 +4,10 @@
         <div class="container mx-auto px-4">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="mb-4 md:mb-0">
-                    <p>&copy; <?php echo date('Y'); ?> Skill Development Tracker</p>
+                    <p>&copy; <?php echo date('Y'); ?> Smart Intern Management. All rights reserved.</p>
                 </div>
                 <div>
-                    <p class="text-sm text-gray-400">Designed for intern skill tracking and development</p>
+                    <p class="text-sm text-gray-400">Built and Design by BSCS - C2022</p>
                 </div>
             </div>
         </div>
