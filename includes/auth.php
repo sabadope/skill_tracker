@@ -123,7 +123,7 @@ function redirect_by_role() {
             header("Location: dashboards/admin_dashboard.php");
             break;
         default:
-            header("Location: index.php");
+            header("Location: logout.php");
             break;
     }
     exit;
@@ -141,6 +141,39 @@ function require_login() {
 // Function to require specific role for protected pages
 function require_role($required_roles) {
     require_login();
+    
+    // Check if user is admin and in view mode
+    if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin') {
+        // Check if admin is in view mode (viewing as another role)
+        if (isset($_SESSION['admin_current_view']) && $_SESSION['admin_current_view'] !== 'admin') {
+            // Admin is in view mode - allow access to any page
+            return true;
+        }
+    }
+    
+    if (!is_array($required_roles)) {
+        $required_roles = [$required_roles];
+    }
+    
+    if (!in_array($_SESSION['user_role'], $required_roles)) {
+        $_SESSION['error'] = "You do not have permission to access this page.";
+        header("Location: ../index.php");
+        exit;
+    }
+}
+
+// Function to require specific role for protected pages (with admin view mode support)
+function require_role_with_admin_view($required_roles) {
+    require_login();
+    
+    // Check if user is admin and in view mode
+    if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin') {
+        // Check if admin is in view mode (viewing as another role)
+        if (isset($_SESSION['admin_current_view']) && $_SESSION['admin_current_view'] !== 'admin') {
+            // Admin is in view mode - allow access to any page
+            return true;
+        }
+    }
     
     if (!is_array($required_roles)) {
         $required_roles = [$required_roles];
@@ -179,5 +212,29 @@ function logout_user() {
     
     // Destroy the session
     session_destroy();
+}
+
+// Function to check if admin is in view mode (read-only mode)
+function is_admin_in_view_mode() {
+    return isset($_SESSION['user_role']) && 
+           $_SESSION['user_role'] === 'admin' && 
+           isset($_SESSION['admin_current_view']) && 
+           $_SESSION['admin_current_view'] !== 'admin';
+}
+
+// Function to get the current view mode for display purposes
+function get_admin_view_mode() {
+    if (is_admin_in_view_mode()) {
+        return $_SESSION['admin_current_view'];
+    }
+    return null;
+}
+
+// Function to get the selected user ID in view mode
+function get_admin_selected_user_id() {
+    if (is_admin_in_view_mode()) {
+        return $_SESSION['admin_selected_user_id'] ?? null;
+    }
+    return null;
 }
 ?>

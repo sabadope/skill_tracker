@@ -22,12 +22,13 @@ try {
         id INT AUTO_INCREMENT PRIMARY KEY,
         intern_id INT NOT NULL,
         supervisor_id INT NOT NULL,
-        feedback_type ENUM('weekly', 'monthly') NOT NULL,
+        task_id INT NOT NULL,
         content TEXT NOT NULL,
         rating INT,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (intern_id) REFERENCES users(id) ON DELETE CASCADE,
-        FOREIGN KEY (supervisor_id) REFERENCES users(id) ON DELETE CASCADE
+        FOREIGN KEY (supervisor_id) REFERENCES users(id) ON DELETE CASCADE,
+        FOREIGN KEY (task_id) REFERENCES mentoring_tasks(id) ON DELETE CASCADE
     )");
 
     echo "Tables created successfully!";
